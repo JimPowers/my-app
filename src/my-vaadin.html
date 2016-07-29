@@ -1,0 +1,256 @@
+<dom-module id='my-vaadin'>
+	<template>
+		<paper-dialog id="dialog">
+        <p>The capital of [[stateName]] is [[capitalName]]</p>
+        <div class="buttons">
+            <paper-button dialog-dismiss>Close</paper-button>
+        </div>
+    </paper-dialog>
+		<style>
+  #simple {
+    height: 360px;
+  }
+		</style>
+		<paper-input id="filter" label="Filter by Make" on-value-changed='filterChanged'></paper-input>
+		<div>
+			vaadin-grid
+		<vaadin-grid id="simple" on-selected-items-changed='selectionChanged'>
+		  <table>
+		    <colgroup>
+		      <col name="VIN"/>
+		      <col name="vehicleType"/>
+		      <col name="make"/>
+		      <col name="model"/>
+		      <col name="year"/>
+		      <col name="color"/>
+		    </colgroup>
+		  </table>
+		</vaadin-grid>
+	</div>
+	<div>
+		dom-repeat inside vaadin-grid
+		<vaadin-grid id="complex" on-selected-items-changed="showState">
+			<table>
+				<colgroup>
+			      <col>
+			      <col>
+			    </colgroup>
+			    <thead>
+			    	<tr>
+				        <th>State Name</th>
+				        <th>Capital Name
+				        </th>
+				    </tr>
+			    </thead>
+			    <tbody>
+			    	<template is="dom-repeat" id='trRepeat' items="{{states}}">
+			    		<tr on-tap="showState">
+			    			 <td>{{item.state}}</td>
+			    			 <td>{{item.capital}}</td>
+			    		</tr>
+			    	</template>
+			    </tbody>
+			</table>
+		</vaadin-grid>
+	</div>
+	</template>
+	<script>
+		Polymer({
+			is: 'my-vaadin',
+			properties: {
+				stateName: String,
+				capitalName: String,
+				states: {
+					type: Array,
+					value: [
+					{
+					state: "Georgia",
+					capital: "Atlanta"
+					},
+					{
+					state: "Florida",
+					capital: "Tallahassee"
+					},
+					{
+					state: "Alabama",
+					capital: "Montgomery"
+					},
+					{
+					state: "Tennessee",
+					capital: "Nashville"
+					},
+					{
+					state: "North Carolina",
+					capital: "Raleigh"
+					},
+					{
+					state: "South Carolina",
+					capital: "Columbia"
+					},
+					{
+					state: "Kentucky",
+					capital: "Frankfort"
+					},
+					{
+					state: "Virginia",
+					capital: "Richmond"
+					}
+					]
+				},
+				vehicles: {
+					type: Array,
+					value: [
+					 {
+		            vehicleType: "Cargo Van",
+		            VIN: "1GAHG39UX51133896",
+		            year: "2005",
+		            make: "Chevrolet",
+		            model: "Express",
+		            VehicleID_1: "AHG3120",
+		            color: "White",
+		            Available: "Yes"
+		            },
+		            {
+		            vehicleType: "Minivan",
+		            VIN: "1D8HN54P38B143969",
+		            year: "2008",
+		            make: "Dodge",
+		            model: "Grand Caravan",
+		            VehicleID_1: "AZZ5851",
+		            color: "Gold",
+		            Available: "Yes"
+		            },
+		            {
+		            vehicleType: "Minivan",
+		            VIN: "1D8HN54P38B147875",
+		            year: "2008",
+		            make: "Dodge",
+		            model: "Grand Caravan",
+		            VehicleID_1: "BAZ8073",
+		            color: "Tan",
+		            Available: "Yes"
+		            },
+		            {
+		            vehicleType: "Minivan",
+		            VIN: "2D8HN54P78R695024",
+		            year: "2008",
+		            make: "Dodge",
+		            model: "Grand Caravan",
+		            VehicleID_1: "AZZ5854",
+		            color: "Black",
+		            Available: "Yes"
+		            },
+		            {
+		            vehicleType: "Minivan",
+		            VIN: "5FNRL38457B404883",
+		            year: "2007",
+		            make: "Honda",
+		            model: "Odyssey",
+		            VehicleID_1: "AAZ9848",
+		            color: "Blue",
+		            Available: "Yes"
+		            },
+		            {
+		            vehicleType: "Minivan",
+		            VIN: "5TDYK3DC8BS040328",
+		            year: "2011",
+		            make: "Toyota",
+		            model: "Sienna",
+		            VehicleID_1: "BMG2640",
+		            color: "White",
+		            Available: "Yes"
+		            },
+		            {
+		            vehicleType: "Minivan",
+		            VIN: "5TDZA22C16S499176",
+		            year: "2006",
+		            make: "Toyota",
+		            model: "Sienna",
+		            VehicleID_1: "AGL1430",
+		            color: "Blue ",
+		            Available: "Yes"
+		            },
+		            {
+		            vehicleType: "Minivan",
+		            VIN: "5TDZK22C07S024178",
+		            year: "2007",
+		            make: "Toyota",
+		            model: "Sienna",
+		            VehicleID_1: "AUQ0523",
+		            color: "Green",
+		            Available: "Yes"
+		            },
+		            {
+		            vehicleType: "Sedan",
+		            VIN: "4T1BE46K57U108185",
+		            year: "2007",
+		            make: "Toyota",
+		            model: "Camry",
+		            VehicleID_1: "BBL9400",
+		            color: "Red",
+		            Available: "Yes"
+		            },
+		            {
+		            vehicleType: "Sedan",
+		            VIN: "4T1BK36B19U351434",
+		            year: "2008",
+		            make: "Toyota",
+		            model: "Avalon",
+		            VehicleID_1: "BIM8070",
+		            color: "Light Blue",
+		            Available: "Yes"
+	            	}
+					]
+				}
+			},
+			filterChanged: function(){
+			if(this.vehicles){
+				var filterText=this.$.filter.value.toLowerCase();
+				this.$.simple.items=this.vehicles.filter(function(val){
+					if (filterText) {
+	            		return (val.make.toLowerCase()).indexOf(filterText) > -1;
+	          		} else {
+	            		return true;
+	          		}
+					});
+				}
+			},
+			selectionChanged: function(){
+				var grid = this.$.simple;
+				//console.log(grid.columns[0]);
+				//console.log('gridIndex size: ',grid.selection.size);
+				if(grid.selection.size>0){
+				var gridIndex=grid.selection.selected();
+				//console.log(gridIndex[0],' was selected');
+				var selectedItem=grid.items[gridIndex[0]];
+				//console.log('selected item: ',selectedItem);
+				console.log(selectedItem.make);
+				}
+			},
+			showState: function(){
+				var stateGrid = this.$.complex;
+				if(stateGrid.selection.size>0){
+					console.log("You clicked a state");
+					var stateIndex=stateGrid.selection.selected()[0]
+					console.log(stateIndex);
+					console.log(this.states[stateIndex]);
+					this.capitalName=this.states[stateIndex].capital;
+					this.stateName=this.states[stateIndex].state;
+					this.$.dialog.open();
+				}
+				/*
+				this.stateName=event.model.get('item.state');
+				this.capitalName=event.model.get('item.capital');
+				
+				this.$.dialog.open();
+				*/
+			},
+			ready: function() {
+	        var grid = this.$.simple;
+	        
+	        grid.items = this.vehicles;
+
+   	      }
+		})
+	</script>
+</dom-module>

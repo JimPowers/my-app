@@ -1,0 +1,37 @@
+<dom-module id="my-employee-list">
+
+  <template>
+
+    <div> Employee list: </div>
+    <table>
+      <tr>
+        <td>First Name    </td><td>Last Name</td>
+      </tr>
+    <template is="dom-repeat" items="{{employees}}">
+    <!--
+        <div>First name: <span>{{item.first}}</span></div>
+        <div>Last name: <span>{{item.last}}</span></div>
+      <div><span>{{item.first}}</span><span>{{item.last}}</span></div>
+      -->
+      <tr><td>{{item.first}}</td><td>{{item.last}}</td></tr>
+    </table>
+    </template>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'my-employee-list',
+      ready: function() {
+        this.employees = [
+            {first: 'Bob', last: 'Smith'},
+            {first: 'Sally', last: 'Johnson'},
+            {first: 'Jim', last: 'Powers'},
+            {first: 'Nikola', last: 'Tesla'},
+            {first: 'Thomas', last: 'Edison'}
+        ];
+      }
+    });
+  </script>
+
+</dom-module>

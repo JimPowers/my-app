@@ -1,0 +1,56 @@
+<dom-module id="my-iron-ajax">
+
+  <template>
+    <paper-button raised on-tap="setajax">Fetch</paper-button>
+
+    <div> Employee list: </div>
+    <table>
+      <tr>
+        <td>First Name    </td><td>Last Name</td>
+      </tr>
+    <template is="dom-repeat" items="{{employees}}">
+    <!--
+        <div>First name: <span>{{item.first}}</span></div>
+        <div>Last name: <span>{{item.last}}</span></div>
+      <div><span>{{item.first}}</span><span>{{item.last}}</span></div>
+      -->
+      <tr><td>{{item.first}}</td><td>{{item.last}}</td></tr>
+    </table>
+    </template>
+    <iron-ajax
+    id="ajax"
+    method="GET"
+    url=""
+    handle-as="json"
+    onresponse="hresponse">
+    </iron-ajax>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'my-iron-ajax',
+      setajax: function(){
+        this.$.ajax.url="https://www.saussw.org/thq/loanervehicles.nsf/api/data/collections/name/field%20Lists4";
+        this.$.ajax.generateRequest();
+      },
+      hresponse: function(request){
+        console.log(request.detail.response);
+        console.log(this.$.ajax.lastResponse);
+      },
+      ready: function() {
+        /*
+        this.employees = [
+            {first: 'Bob', last: 'Smith'},
+            {first: 'Sally', last: 'Johnson'},
+            {first: 'Jim', last: 'Powers'},
+            {first: 'Nikola', last: 'Tesla'},
+            {first: 'Thomas', last: 'Edison'}
+            
+        ];
+        */
+      }
+    });
+  </script>
+
+</dom-module>

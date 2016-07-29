@@ -1,0 +1,190 @@
+<dom-module id="my-vehicles">
+<style>
+    tr {
+        cursor: pointer;
+    }
+</style>
+  <template>
+    <paper-dialog id="dialog">
+        <p>You picked a [[Year]] [[Make]] [[Model]]</p>
+        <div class="buttons">
+            <paper-button dialog-dismiss>Close</paper-button>
+        </div>
+    </paper-dialog>
+   
+    <div> Vehicles: </div>
+    <div>
+        <paper-dropdown-menu id='makeDropdown' label="Select make" on-iron-select="makeSelected">
+              <paper-listbox class="dropdown-content" id='listbox' selected='0'>
+                <paper-item name='All'>All</paper-item>
+                <paper-item name='Chevrolet'>Chevrolet</paper-item>
+                <paper-item name='Dodge'>Dodge</paper-item>
+                <paper-item name='Honda'>Honda</paper-item>
+                <paper-item name='Toyota'>Toyota</paper-item>
+              </paper-listbox>
+        </paper-dropdown-menu>
+    </div>
+    <div>
+        <table>
+          <tr>
+            <td>VIN </td>
+            <td>Vehicle Type  </td>
+            <td>Make </td>
+            <td>Model </td>
+            <td>Year </td>
+            <td>Color</td>
+          </tr>
+            <template is="dom-repeat" id='trRepeat' items="{{vehicles}}" filter='setMakeFilter'>
+              <tr on-tap="getVIN">
+                <td>{{item.VIN_1}}</a></td>
+                <td>{{item.VehicleType_1}}</td>
+                <td>{{item.Make_1}}</td>
+                <td>{{item.Model_1}}</td>
+                <td>{{item.ModelYear_1}}</td>
+                <td>{{item.color_1}}</td>
+              </tr>
+            </template>
+        </table>
+    </div>
+  </template>
+  <script>
+    Polymer({
+      is: 'my-vehicles',
+      properties: {
+          VIN: String,
+          Make: String,
+          Model: String,
+          Year: String,
+          selectedMake: String
+        },
+      makeSelected: function(){
+        this.selectedMake=this.$.makeDropdown.selectedItemLabel;
+        console.log('makeSelected: ',this.selectedMake);
+        this.$.trRepeat.render();
+
+       // this.setMakeFilter(this.selectedMake);
+        },
+      setMakeFilter: function(item){
+            console.log('setMakeFilter: ', this.selectedMake);
+            if(this.selectedMake=='All'){
+                return true;
+            }else{
+                return item.Make_1==this.selectedMake;
+            }
+        },
+      getVIN: function(event){
+        console.log(event.model.get('item.VIN_1'));
+        this.VIN=event.model.get('item.VIN_1');
+        this.Make=event.model.get('item.Make_1');
+        this.Model=event.model.get('item.Model_1');
+        this.Year=event.model.get('item.ModelYear_1');
+        this.$.dialog.open();
+      },
+      ready: function() {
+        this.vehicles = [
+           {
+            VehicleType_1: "Cargo Van",
+            VIN_1: "1GAHG39UX51133896",
+            ModelYear_1: "2005",
+            Make_1: "Chevrolet",
+            Model_1: "Express",
+            VehicleID_1: "AHG3120",
+            color_1: "White",
+            Available: "Yes"
+            },
+            {
+            VehicleType_1: "Minivan",
+            VIN_1: "1D8HN54P38B143969",
+            ModelYear_1: "2008",
+            Make_1: "Dodge",
+            Model_1: "Grand Caravan",
+            VehicleID_1: "AZZ5851",
+            color_1: "Gold",
+            Available: "Yes"
+            },
+            {
+            VehicleType_1: "Minivan",
+            VIN_1: "1D8HN54P38B147875",
+            ModelYear_1: "2008",
+            Make_1: "Dodge",
+            Model_1: "Grand Caravan",
+            VehicleID_1: "BAZ8073",
+            color_1: "Tan",
+            Available: "Yes"
+            },
+            {
+            VehicleType_1: "Minivan",
+            VIN_1: "2D8HN54P78R695024",
+            ModelYear_1: "2008",
+            Make_1: "Dodge",
+            Model_1: "Grand Caravan",
+            VehicleID_1: "AZZ5854",
+            color_1: "Black",
+            Available: "Yes"
+            },
+            {
+            VehicleType_1: "Minivan",
+            VIN_1: "5FNRL38457B404883",
+            ModelYear_1: "2007",
+            Make_1: "Honda",
+            Model_1: "Odyssey",
+            VehicleID_1: "AAZ9848",
+            color_1: "Blue",
+            Available: "Yes"
+            },
+            {
+            VehicleType_1: "Minivan",
+            VIN_1: "5TDYK3DC8BS040328",
+            ModelYear_1: "2011",
+            Make_1: "Toyota",
+            Model_1: "Sienna",
+            VehicleID_1: "BMG2640",
+            color_1: "White",
+            Available: "Yes"
+            },
+            {
+            VehicleType_1: "Minivan",
+            VIN_1: "5TDZA22C16S499176",
+            ModelYear_1: "2006",
+            Make_1: "Toyota",
+            Model_1: "Sienna",
+            VehicleID_1: "AGL1430",
+            color_1: "Blue ",
+            Available: "Yes"
+            },
+            {
+            VehicleType_1: "Minivan",
+            VIN_1: "5TDZK22C07S024178",
+            ModelYear_1: "2007",
+            Make_1: "Toyota",
+            Model_1: "Sienna",
+            VehicleID_1: "AUQ0523",
+            color_1: "Green",
+            Available: "Yes"
+            },
+            {
+            VehicleType_1: "Sedan",
+            VIN_1: "4T1BE46K57U108185",
+            ModelYear_1: "2007",
+            Make_1: "Toyota",
+            Model_1: "Camry",
+            VehicleID_1: "BBL9400",
+            color_1: "Red",
+            Available: "Yes"
+            },
+            {
+            VehicleType_1: "Sedan",
+            VIN_1: "4T1BK36B19U351434",
+            ModelYear_1: "2008",
+            Make_1: "Toyota",
+            Model_1: "Avalon",
+            VehicleID_1: "BIM8070",
+            color_1: "Light Blue",
+            Available: "Yes"
+            }
+        ];
+      }
+    });
+  </script>
+
+</dom-module>

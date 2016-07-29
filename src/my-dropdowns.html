@@ -1,0 +1,66 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<dom-module id="my-dropdowns">
+<template>
+  <div>
+    <span>
+    	<paper-dropdown-menu id='nameDropdown' label="Select a name" on-iron-select="_nameSelected">
+      		<paper-listbox class="dropdown-content" id='listbox' attrForSelected="name">
+      			<template is="dom-repeat" items="{{names}}">
+        			<paper-item name='{{item}}'>{{item}}</paper-item>
+        		</template>
+      		</paper-listbox>
+    	</paper-dropdown-menu>
+    </span>
+    <span>
+      <paper-dropdown-menu label="Select a planet">
+          <paper-listbox class="dropdown-content">
+              <paper-item>Mercury</paper-item>
+              <paper-item>Venus</paper-item>
+              <paper-item>Earth</paper-item>
+              <paper-item>Mars</paper-item>
+              <paper-item>Jupiter</paper-item>
+              <paper-item>Saturn</paper-item>
+              <paper-item>Uranus</paper-item>
+              <paper-item>Neptune</paper-item>
+              <paper-item>Pluto</paper-item>
+           </paper-listbox>
+      </paper-dropdown-menu>
+    </span>
+    <span>
+      <paper-dropdown-menu label="Dinosaurs">
+          <paper-listbox class="dropdown-content">
+            <paper-item>allosaurus</paper-item>
+            <paper-item>brontosaurus</paper-item>
+            <paper-item>carcharodontosaurus</paper-item>
+            <paper-item>diplodocus</paper-item>
+          </paper-listbox>
+        </paper-dropdown-menu>
+    </span>
+</div>
+</template>
+<script>
+Polymer({
+      is: 'my-dropdowns',
+      properties: {
+        names: {
+          type: Array,
+          value: [
+          "Tinker",
+          "Tailor",
+          "Soldier",
+          "Sailor",
+          "Rich man",
+          "Poor man",
+          "Beggar man",
+          "Thief"
+          ]
+        }
+      },
+      _nameSelected: function(){
+        console.log('You made a selection');
+        console.log(this.$.listbox.selectedItem.name);
+        console.log(this.$.nameDropdown.selectedItemLabel);
+      }
+    });
+</script>
+</dom-module>

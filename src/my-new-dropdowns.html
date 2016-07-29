@@ -1,0 +1,49 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<dom-module id="my-dropdowns">
+  <template>
+  	<div>
+  		<span>
+        <paper-dropdown-menu label="Spot the mole">
+          <paper-listbox class="dropdown-content">
+            <paper-item>Tinker</paper-item>
+            <paper-item>Tailor</paper-item>
+            <paper-item>Soldier</paper-item>
+            <paper-item>Sailor</paper-item>
+          </paper-listbox>
+        </paper-dropdown-menu>
+  		</span>
+  		<span>
+        <paper-dropdown-menu label="Pick a planet">
+          <paper-listbox class="dropdown-content">
+            <template is="dom-repeat" items="{{planets}}">
+              <paper-item>{{item}}</paper-item>
+            </template>
+          </paper-listbox>
+        </paper-dropdown-menu>
+  		</span>
+  	</div>
+  </template>
+  <script>
+
+    Polymer({
+
+      is: 'my-dropdowns',
+      ready: function() {
+        this.planets = [
+        'Mercury',
+        'Venus',
+        'Earth',
+        'Mars',
+        'Jupiter',
+        'Saturn',
+        'Uranus',
+        'Neptune',
+        'Pluto'
+        ]
+      }
+
+    });
+
+  </script>
+
+</dom-module>
